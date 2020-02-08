@@ -11,6 +11,7 @@ class MoviesController < ApplicationController
   end
 
   def index
+    # used youtube tutorial by Hunter Jaffer
     
     @sort = params[:sort] || session[:sort]
     session[:ratings] = session[:ratings] || {'G'=>'','R'=>'','PG-13'=>'','PG'=>''}
@@ -21,7 +22,7 @@ class MoviesController < ApplicationController
     @selected = params[:ratings] || session[:ratings]
     session[:sort] = @sort
     session[:ratings] = @selected
-    @movies = Movie.where(rating: session[:ratings].keys).order(session[:sort])
+    @movies = Movie.where(rating: @selected.keys).order(@sort)
     
     if (params[:sort].nil? and !(session[:sort].nil?)) || (params[:ratings].nil? and !(session[:ratings].nil?))
       flash.keep
